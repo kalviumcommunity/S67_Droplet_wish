@@ -1,25 +1,23 @@
 const express = require('express');
-const { connectDB } = require('./Database/db');
+const cors = require('cors');
+require('dotenv').config();
+const connectDB = require('./db');
 
 const app = express();
+const PORT = process.env.PORT || 5000;
 
-require('dotenv').config();
-const port = process.env.PORT || 8080;
-const url = process.env.db_url;
+// Middleware
+app.use(express.json());
+app.use(cors());
 
+// Database Connection
+connectDB(process.env.db_url);
 
-app.listen(port, async() => {
+// Routes
+const dropletRoutes = require('./routes'); // Ensure correct path
+app.use('/api', dropletRoutes);
 
-  try{
-    await connectDB(url);
-    console.log(`Server is running on port ${port}`);
-  }
-  catch(error){
-    console.error(error);
-  }
-});
-
-
-app.get('/', (req, res) => {    
-    res.send('Hello World!');
+// Start Server
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
 });
