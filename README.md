@@ -30,5 +30,3 @@ Others:
 bcryptjs (for hashing user passwords)
 dotenv (for managing environment variables)
 
-The link of my deployment in vercel:
-https://s67dropletwish-uniq.vercel.app/
